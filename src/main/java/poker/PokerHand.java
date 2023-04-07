@@ -1,19 +1,18 @@
 package poker;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PokerHand implements Comparable<PokerHand> {
-    private List<Card> cards = new ArrayList<>();
-    private HandRank handRank;
+    private final List<Card> cards;
+    private final HandRank handRank;
 
     public PokerHand(String handOfCards) {
-	String[] handCards = handOfCards.split(" ");
-	for (String card : handCards) {
-	    cards.add(new Card(card));
-	}
-
-	this.handRank = new HandRank(cards);
+	cards = Arrays.stream(handOfCards.split(" "))
+			.map(Card::new)
+			.collect(Collectors.toList());
+	handRank = new HandRank(cards);
     }
 
     @Override
